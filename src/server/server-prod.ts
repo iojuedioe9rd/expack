@@ -6,14 +6,14 @@ const app = express(),
             HTML_FILE = path.join(DIST_DIR, 'index.html') as any
 
 
-(app as any).use(express.static(DIST_DIR))
+app.use(express.static(DIST_DIR))
 
-(app as any).app.get('*', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(HTML_FILE)
 })
 
-const PORT = (process as any).env.PORT || 8080 as any
-(app as any).app.listen(PORT, () => {
+const PORT = process.env.PORT || 8080
+app.listen(PORT, () => {
     console.log(`App listening to ${PORT}....`)
     console.log('Press Ctrl+C to quit.')
 })
