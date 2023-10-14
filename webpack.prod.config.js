@@ -7,12 +7,15 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: './src/index.js'
+    main: './src/index.ts'
   },
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
     filename: '[name].js'
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', ".json", ".wasm"],
   },
   target: 'web',
   devtool: 'source-map',
@@ -37,6 +40,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.(ts|tsx)?$/,
+        use: ["babel-loader", 'ts-loader'],
+        exclude: /node_modules/,
+      },
       {
         // Transpiles ES6-8 into ES5
         test: /\.js$/,
