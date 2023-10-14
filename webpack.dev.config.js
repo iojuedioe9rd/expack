@@ -5,7 +5,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/index.js']
+    main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/index.ts']
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -15,9 +15,16 @@ module.exports = {
   mode: 'development',
   target: 'web',
   devtool: 'source-map',
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', ".json", ".wasm"],
+  },
   module: {
     rules: [
-      
+      {
+        test: /\.(ts|tsx)?$/,
+        use: ["babel-loader", 'ts-loader'],
+        exclude: /node_modules/,
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

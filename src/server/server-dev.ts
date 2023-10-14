@@ -11,7 +11,7 @@ import config from '../../webpack.dev.config.js'
 const app = express(),
             DIST_DIR = __dirname,
             HTML_FILE = path.join(DIST_DIR, 'index.html'),
-            compiler = webpack(config)
+            compiler = webpack(config as webpack.Configuration)
 
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
