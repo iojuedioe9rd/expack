@@ -12,7 +12,7 @@ console.log("hi")
 
 const app = express(),
             DIST_DIR = __dirname,
-            HTML_FILE = path.join(DIST_DIR, 'index.html'),
+            HTML_FILE = path.join(DIST_DIR, '../index.html'),
             compiler = webpack(config as webpack.Configuration)
 
 
@@ -24,7 +24,8 @@ console.log("hi")
 app.use(webpackHotMiddleware(compiler))
 console.log("hi")
 app.get('*', (req, res, next) => {
-  compiler.outputFileSystem.readFile(HTML_FILE, (err: any, result: any) => {
+  const filename = path.resolve(compiler.outputPath, 'index.html');
+  compiler.outputFileSystem.readFile(filename, (err: any, result: any) => {
   if (err) {
     return next(err)
   }
